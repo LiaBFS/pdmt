@@ -2,8 +2,7 @@ package com.example.bleblebleblublubl;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,32 +10,35 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class TabuadaResultado extends AppCompatActivity {
 
-    Button buttonGerar;
-    EditText editTextNumero;
+    TextView textViewTabuada;
+    TextView textView5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tabuada_resultado);
 
-        buttonGerar.findViewById(R.id.buttonGerar);
-        editTextNumero.findViewById(R.id.editTextNumero);
+        textViewTabuada.findViewById(R.id.textViewTabuada);
 
-        buttonGerar.setOnClickListener(v ->{
-            Intent intent = new Intent(this, TabuadaResultado.class);
-            Bundle bundle = new Bundle();
-            Double numero = Double.parseDouble(editTextNumero.getText().toString());
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
 
-            bundle.putDouble("numero",numero);
-
-            startActivity(intent);
+        Double numero = bundle.getDouble("numero");
 
 
 
-        });
+        Double vezes1 = numero;
+
+        textViewTabuada.setText(Double.toString(vezes1));
+
+        Double vezes2 = numero*2;
+
+        textView5.setText(Double.toString(vezes2));
+
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
