@@ -18,56 +18,27 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
 
-    ArrayList<String> nomes;
+
     ListView listView;
-    Button button;
-    EditText editTextText;
+
+
+
+    PlanetaController planetaController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
+         planetaController=new PlanetaController();
         listView = findViewById(R.id.listView);
-        button = findViewById(R.id.button);
-        editTextText = findViewById(R.id.editTextText);
-        nomes = new ArrayList<String>();
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nomes);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, planetaController.getNomePlaneta());
         listView.setAdapter(adapter);
-        button.setOnClickListener(v ->{
-            nomes.add(editTextText.getText().toString());
-            adapter.notifyDataSetChanged();
-        });
-
-        listView.setOnItemLongClickListener(((parent, view, position, id) -> {
-            nomes.remove(position);
-            adapter.notifyDataSetChanged();
-            return true;
-        }));
 
 
-        /**listView.setAdapter(adapter);
-        listView.setOnItemClickListener((parent, view, position, id) -> {
 
-            Toast.makeText(getApplicationContext(), nomes[position], Toast.LENGTH_LONG).show();
-
-        });
-
-        listView.setOnItemLongClickListener((parent, view, position, id) -> {
-            Toast.makeText(getApplicationContext(), (position) + nomes[position], Toast.LENGTH_SHORT).show();
-
-                    return false;
-                }
-        );**/
 
 
     }
