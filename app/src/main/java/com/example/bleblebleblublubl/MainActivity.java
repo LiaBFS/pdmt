@@ -1,6 +1,7 @@
 package com.example.bleblebleblublubl;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -43,18 +44,12 @@ public class MainActivity extends AppCompatActivity {
                 " titulo VARCHAR, texto TEXT)");
 
         carregarListagem();
-
-        ContentValues values = new ContentValues();
-        values.put("titulo", "Nota exemplo");
-        values.put("texto", "Este é o texto da nota de exemplo");
-        db.insert("notas", null, values);
-
         b=findViewById(R.id.button);
         b.setOnClickListener(v -> {
             EditText editText = findViewById(R.id.editTextText);
             String texto = editText.getText().toString();
             ContentValues cv = new ContentValues();
-            cv.put("titulo", "Nota do Usuario");
+            cv.put("titulo", texto);
             cv.put("texto", texto);
 
             db.insert("notas", null, cv);
@@ -62,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
 
             carregarListagem();
         });
+
+        lv.setOnItemClickListener(((parent, view, position, id) -> {
+            String titulo = (String) parent.getItemAtPosition(position);
+
+
+            Intent intent = new Intent(MainActivity.this, ExibeItem.class);
+            startActivity(intent);
+        }));
 
     }
         public void carregarListagem (){
